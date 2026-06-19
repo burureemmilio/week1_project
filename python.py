@@ -1,47 +1,112 @@
-print("WELCOME TO THE QIIZ GAME")
+import random
+
+# List of quiz questions
+questions = [
+    {
+        "question": "What is the capital city of Kenya?",
+        "choices": {
+            "A": "Mombasa",
+            "B": "Nairobi",
+            "C": "Kisumu",
+            "D": "Nakuru"
+        },
+        "answer": "B"
+    },
+    {
+        "question": "Which planet is known as the Red Planet?",
+        "choices": {
+            "A": "Earth",
+            "B": "Jupiter",
+            "C": "Mars",
+            "D": "Venus"
+        },
+        "answer": "C"
+    },
+    {
+        "question": "What is 8 × 7?",
+        "choices": {
+            "A": "54",
+            "B": "56",
+            "C": "64",
+            "D": "49"
+        },
+        "answer": "B"
+    },
+    {
+        "question": "Which language is mainly used to style web pages?",
+        "choices": {
+            "A": "HTML",
+            "B": "Python",
+            "C": "CSS",
+            "D": "Java"
+        },
+        "answer": "C"
+    },
+    {
+        "question": "How many days are there in a leap year?",
+        "choices": {
+            "A": "365",
+            "B": "364",
+            "C": "360",
+            "D": "366"
+        },
+        "answer": "D"
+    }
+]
+
+
+# Mix the order of the questions
+random.shuffle(questions)
+
 score = 0
-#Question 1
-print("Question 1: Who is the current president of USA? \n A: Barrack Obama\n B: Elon Musk\n C: Donald Trump\n D: Joe Biden" )
-answer1 = input("What is your answer(A, B, C or D): ").upper()
-if answer1 == "C":
-    score += 1
 
-#Question 2
-print("Question 2: What is the highest mountain in the world?\n A: Mount Kilimanjaro\n B: Mount Everest\n C: Mount Kenya\n D: Mount Elgon ")
-answer2 = input("What is your answer(A, B , C or D): ").upper()
-if answer2 == "B":
-    score += 1
+print("WELCOME TO THE QUIZ")
 
-#Question 3
-print("Question 3: How many continents are there in the world?\n A: 8\n B: 6\n C: 7\n D: 9 ")
-answer3 = input("What is your answer(A, B , C or D): ").upper()
-if answer3 == "C":
-    score += 1
+# Loop through each question
+for number, question in enumerate(questions, start=1):
+    print(f"\nQuestion {number}: {question['question']}")
 
-#Question 4
-print("Question 4: Which month has 28 days in a normal year?\n A: February\n B: March\n C: August\n D: September ")
-answer4 = input("What is your answer(A, B , C or D): ").upper()
-if answer4 == "A":
-    score += 1
+    # Display the choices
+    for letter, choice in question["choices"].items():
+        print(f"{letter}. {choice}")
 
-#Question 5
-print("Question 5: Which instrument is used to measure temperature?\n A: Barometer\n B: Thermometer\n C: Compass\n D: Stop watch ")
-answer5 = input("What is your answer(A, B , C or D): ").upper()
-if answer5 == "B":
-    score += 1    
+     # Continue asking until the user enters A, B, C or D
+    while True:
+        try:
+            user_answer = input("Enter your answer (A, B, C or D): ").upper()
+
+            if user_answer not in ["A", "B", "C", "D"]:
+                raise ValueError
+
+            break
+
+        except ValueError:
+            print("Invalid input. Please enter A, B, C or D.")
+    
+    # Check whether the answer is correct
+    if user_answer == question["answer"]:
+        print("Correct!")
+        score += 1
+    else:
+        correct_letter = question["answer"]
+        correct_choice = question["choices"][correct_letter]
+
+        print("Incorrect.")
+        print(f"The correct answer is {correct_letter}. {correct_choice}")
+
+
+# Display final score
+total_questions = len(questions)
+
+print(f"Your score is {score}/{total_questions}")
 
 if score == 5:
-    remark = "That is Excellent"
+    print("Excellent")
 elif score == 4:
-    remark = "That is Very Good"
-elif score == 3:
-    remark = "That is Good"
+    print("Very Good")
+elif score == 3:  
+    print("Good")
 elif score == 2:
-    remark = "That is a Nice Try"
-elif score == 1:
-    remark = "Keep Practicing"
+    print("Nice Try")
 else:
-    remark = "You will do better next time"       
-
-print("Your total score is",score ,remark)    
-
+    print("Try Again")              
